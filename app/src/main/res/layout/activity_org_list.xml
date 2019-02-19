@@ -5,15 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="请选择机构"
-        android:layout_marginTop="100dp"
-        android:textSize="20sp"
-        android:layout_marginLeft="16dp"
-        android:onClick="selectOrg"/>
+    tools:context=".view.OrgListActivity">
 
 </LinearLayout>
