@@ -29,4 +29,6 @@
     </style>
 
     <style name="ProgressBar" parent="android:Widget.Material.ProgressBar.Horizontal" />
+
+    <style name="Progress.Org" parent="android:Widget.Material.ProgressBar.Small" />
 </resources>

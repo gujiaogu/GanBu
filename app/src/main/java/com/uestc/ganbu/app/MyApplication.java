@@ -9,6 +9,7 @@ import com.uestc.ganbu.entity.DaoSession;
 public class MyApplication extends Application {
 
     private DaoSession daoSession;
+    private DaoMaster.DevOpenHelper helper;
 
     @Override
     public void onCreate() {
@@ -17,7 +18,7 @@ public class MyApplication extends Application {
     }
 
     private void initGreenDao() {
-        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "ganbu.db");
+        helper = new DaoMaster.DevOpenHelper(this, "ganbu.db");
         SQLiteDatabase db = helper.getWritableDatabase();
         DaoMaster daoMaster = new DaoMaster(db);
         daoSession = daoMaster.newSession();
@@ -25,5 +26,9 @@ public class MyApplication extends Application {
 
     public DaoSession getDaoSession() {
         return daoSession;
+    }
+
+    public DaoMaster.DevOpenHelper getHelper() {
+        return helper;
     }
 }

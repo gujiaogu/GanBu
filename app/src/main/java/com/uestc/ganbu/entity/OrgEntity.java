@@ -9,13 +9,13 @@ import org.greenrobot.greendao.annotation.Generated;
 public class OrgEntity {
     @Property(nameInDb = "BS01")
     @Id
-    private Long id;
+    private Long _id;//sqlite的Cursor必须要有一个_id才能查询
     private String BS02;
     private String BS03;
-    private int BS04;
-    private int BS05;
+    private long BS04;
+    private long BS05;
     private int BS06;
-    private int BS07;
+    private long BS07;//父机构
     @Property(nameInDb = "B0105")
     private String name;
     @Property(nameInDb = "B0110")
@@ -35,12 +35,12 @@ public class OrgEntity {
     @Property(nameInDb = "S0405")
     private String orgOtherFlag;
 
-    @Generated(hash = 724132166)
-    public OrgEntity(Long id, String BS02, String BS03, int BS04, int BS05,
-            int BS06, int BS07, String name, String orgCode, String address,
+    @Generated(hash = 1858017615)
+    public OrgEntity(Long _id, String BS02, String BS03, long BS04, long BS05,
+            int BS06, long BS07, String name, String orgCode, String address,
             String phone, String sort, String orgCadreNum, String orgEvidence,
             String workEvidence, String orgOtherFlag) {
-        this.id = id;
+        this._id = _id;
         this.BS02 = BS02;
         this.BS03 = BS03;
         this.BS04 = BS04;
@@ -62,12 +62,12 @@ public class OrgEntity {
     public OrgEntity() {
     }
 
-    public Long getId() {
-        return id;
+    public Long get_id() {
+        return _id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void set_id(Long _id) {
+        this._id = _id;
     }
 
     public String getBS02() {
@@ -86,19 +86,19 @@ public class OrgEntity {
         this.BS03 = BS03;
     }
 
-    public int getBS04() {
+    public long getBS04() {
         return BS04;
     }
 
-    public void setBS04(int BS04) {
+    public void setBS04(long BS04) {
         this.BS04 = BS04;
     }
 
-    public int getBS05() {
+    public long getBS05() {
         return BS05;
     }
 
-    public void setBS05(int BS05) {
+    public void setBS05(long BS05) {
         this.BS05 = BS05;
     }
 
@@ -110,11 +110,11 @@ public class OrgEntity {
         this.BS06 = BS06;
     }
 
-    public int getBS07() {
+    public long getBS07() {
         return BS07;
     }
 
-    public void setBS07(int BS07) {
+    public void setBS07(long BS07) {
         this.BS07 = BS07;
     }
 
