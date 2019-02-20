@@ -93,7 +93,7 @@ public class BasicInfoFragment extends BaseFragment {
         }
         SQLiteDatabase db = application.getHelper().getReadableDatabase();
 
-        mName.setText(entity.getName());
+        mName.setText(getTrueString(entity.getName()));
         mGender.setText("1".equals(entity.getSex()) ? "男" : "女");
         String birthday = entity.getBirthDay();
         if (!TextUtils.isEmpty(birthday)) {
@@ -109,9 +109,12 @@ public class BasicInfoFragment extends BaseFragment {
             }
             StreamUtil.close(cursor);
         }
-        mJiGuan.setText(entity.getNativePlace());
-        mBirthPlace.setText(entity.getBirthplace());
-        mWorkTime.setText(entity.getWorkTime().substring(0, entity.getWorkTime().indexOf(" ")));
+        mJiGuan.setText(getTrueString(entity.getNativePlace()));
+        mBirthPlace.setText(getTrueString(entity.getBirthplace()));
+        String workTime = entity.getWorkTime();
+        if (!TextUtils.isEmpty(workTime)) {
+            mWorkTime.setText(workTime.substring(0, workTime.indexOf(" ")));
+        }
         String healthStatus = entity.getHealth();
         if (!TextUtils.isEmpty(healthStatus)) {
             Cursor cursor = db.rawQuery("SELECT * FROM ts06 WHERE S0601='21' and S0602=?", new String[]{healthStatus});
@@ -135,7 +138,42 @@ public class BasicInfoFragment extends BaseFragment {
             }
             StreamUtil.close(cursor);
         }
+        mTechSpeciality.setText(getTrueString(entity.getSpecialty()));
 
-        mTechSpeciality.setText(entity.getSpecialty());
+        String degree = entity.getFullTimeEducation();
+        if (!TextUtils.isEmpty(degree)) {
+            Cursor cursor = db.rawQuery("SELECT * FROM ts06 WHERE S0601='29' and S0602=?", new String[]{degree});
+            int count = cursor.getCount();
+            if (count > 0) {
+                if (cursor.moveToFirst()) {
+                    mFullTimeDegree.setText(cursor.getString(cursor.getColumnIndex("S0603")));
+                }
+            }
+            StreamUtil.close(cursor);
+        }
+
+        mFullTimeCollege.setText(getTrueString(entity.getFullTimeSchool()));
+        mFullTimeMajor.setText(getTrueString(entity.getFullTimeMajor()));
+        String degreePart = entity.getInServiceDegree();
+        if (!TextUtils.isEmpty(degreePart)) {
+            Cursor cursor = db.rawQuery("SELECT * FROM ts06 WHERE S0601='29' and S0602=?", new String[]{degreePart});
+            int count = cursor.getCount();
+            if (count > 0) {
+                if (cursor.moveToFirst()) {
+                    mPartTimeDegree.setText(cursor.getString(cursor.getColumnIndex("S0603")));
+                }
+            }
+            StreamUtil.close(cursor);
+        }
+        mPartTimeCollege.setText(getTrueString(entity.getInServiceSchool()));
+        mPartTimeMajor.setText(getTrueString(entity.getInServiceMajor()));
+        mCurrentPosition.setText(getTrueString(entity.getPostTitleDesc()));
+    }
+
+    private String getTrueString(String param) {
+        if (TextUtils.isEmpty(param)) {
+            return "";
+        }
+        return param;
     }
 }

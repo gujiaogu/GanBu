@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <TextView
+        style="@style/cadre_member_text"
+        android:id="@+id/item_family_relationship"/>
+    <TextView
+        style="@style/cadre_member_text"
+        android:id="@+id/item_family_name"/>
+    <TextView
+        style="@style/cadre_member_text"
+        android:id="@+id/item_family_birthday"/>
+    <TextView
+        style="@style/cadre_member_text"
+        android:id="@+id/item_family_political"/>
+    <TextView
+        style="@style/cadre_member_text"
+        android:id="@+id/item_family_work_unit"/>
+</LinearLayout>

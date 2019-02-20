@@ -10,10 +10,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar.Fullscreen">
-        <activity android:name=".view.CadreInfoActivity"
+        <activity android:name=".view.QueryUserListActivity"
+            android:label="@string/title_activity_query"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustPan"/>
+        <activity
+            android:name=".view.CadreInfoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".view.OrgListActivity"
             android:screenOrientation="portrait"

@@ -31,10 +31,10 @@ public class CadreInfoActivity extends BaseActivity {
         entity = getIntent().getParcelableExtra(KEY_CADRE_INFO);
         ArrayList<FragmentWrapper> fragmentList = new ArrayList<>();
         fragmentList.add(new FragmentWrapper(0, "基础信息", BasicInfoFragment.newInstance(entity)));
-        fragmentList.add(new FragmentWrapper(1, "简历", ResumeFragment.newInstance("", "")));
+        fragmentList.add(new FragmentWrapper(1, "简历", ResumeFragment.newInstance(entity)));
         fragmentList.add(new FragmentWrapper(2, "奖惩情况", AwardPunishmentFragment.newInstance("", "")));
-        fragmentList.add(new FragmentWrapper(3, "年度考核结果", CheckResultFragment.newInstance("", "")));
-        fragmentList.add(new FragmentWrapper(4, "家庭成员", FamilyMemberFragment.newInstance("", "")));
+        fragmentList.add(new FragmentWrapper(3, "年度考核结果", CheckResultFragment.newInstance(entity)));
+        fragmentList.add(new FragmentWrapper(4, "家庭成员", FamilyMemberFragment.newInstance(entity)));
         Fragment fragmentContainer = TabFragmentContainer.getInstance(fragmentList, mRes.getString(R.string.title_activity_cadre_info));
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.place_holder, fragmentContainer).commitAllowingStateLoss();
