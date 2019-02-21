@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">泸州干部</string>
+    <string name="app_name">泸州市干部信息管理系统</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_cadre_info">干部信息</string>
