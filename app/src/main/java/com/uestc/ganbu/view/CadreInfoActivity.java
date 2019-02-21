@@ -32,7 +32,7 @@ public class CadreInfoActivity extends BaseActivity {
         ArrayList<FragmentWrapper> fragmentList = new ArrayList<>();
         fragmentList.add(new FragmentWrapper(0, "基础信息", BasicInfoFragment.newInstance(entity)));
         fragmentList.add(new FragmentWrapper(1, "简历", ResumeFragment.newInstance(entity)));
-        fragmentList.add(new FragmentWrapper(2, "奖惩情况", AwardPunishmentFragment.newInstance("", "")));
+        fragmentList.add(new FragmentWrapper(2, "奖惩情况", AwardPunishmentFragment.newInstance(entity)));
         fragmentList.add(new FragmentWrapper(3, "年度考核结果", CheckResultFragment.newInstance(entity)));
         fragmentList.add(new FragmentWrapper(4, "家庭成员", FamilyMemberFragment.newInstance(entity)));
         Fragment fragmentContainer = TabFragmentContainer.getInstance(fragmentList, mRes.getString(R.string.title_activity_cadre_info));

@@ -66,7 +66,7 @@ public class SplashActivity extends AppCompatActivity {
     private void startMain() {
         new Thread(() -> {
             try {
-                Thread.sleep(500);
+                Thread.sleep(1000);
                 animHandler.sendMessage(Message.obtain());
             } catch (Exception e) {
                 e.printStackTrace();

@@ -12,6 +12,7 @@ import com.uestc.ganbu.entity.CadreAppraisal;
 import com.uestc.ganbu.entity.CadreAppraisalDao;
 import com.uestc.ganbu.entity.CadreInfo;
 import com.uestc.ganbu.entity.DaoSession;
+import com.uestc.ganbu.util.ItemDivider;
 
 import org.greenrobot.greendao.query.QueryBuilder;
 
@@ -60,6 +61,7 @@ public class CheckResultFragment extends BaseFragment {
 
     private void initList() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(mCtx, LinearLayoutManager.VERTICAL, false);
+        recyclerView.addItemDecoration(new ItemDivider(mRes.getDrawable(R.drawable.recycler_view_item_divider), (int) mRes.getDimension(R.dimen.item_divider_padding)));
         recyclerView.setLayoutManager(layoutManager);
         mAdapter = new CheckResultAdapter(mCtx);
         recyclerView.setAdapter(mAdapter);

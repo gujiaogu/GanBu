@@ -2,7 +2,10 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:paddingTop="@dimen/vertical_spacing"
+    android:paddingBottom="@dimen/vertical_spacing"
+    android:gravity="center_vertical">
     <TextView
         style="@style/cadre_member_text"
         android:id="@+id/item_family_relationship"/>
@@ -11,11 +14,14 @@
         android:id="@+id/item_family_name"/>
     <TextView
         style="@style/cadre_member_text"
-        android:id="@+id/item_family_birthday"/>
+        android:id="@+id/item_family_birthday"
+        android:layout_weight="2"/>
     <TextView
         style="@style/cadre_member_text"
         android:id="@+id/item_family_political"/>
     <TextView
         style="@style/cadre_member_text"
-        android:id="@+id/item_family_work_unit"/>
+        android:id="@+id/item_family_work_unit"
+        android:layout_weight="3"
+        android:gravity="left"/>
 </LinearLayout>

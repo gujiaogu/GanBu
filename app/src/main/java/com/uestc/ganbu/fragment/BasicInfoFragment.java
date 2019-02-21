@@ -111,6 +111,10 @@ public class BasicInfoFragment extends BaseFragment {
         }
         mJiGuan.setText(getTrueString(entity.getNativePlace()));
         mBirthPlace.setText(getTrueString(entity.getBirthplace()));
+        String joinTime = entity.getJoinOrganizationTime();
+        if (!TextUtils.isEmpty(joinTime)) {
+            mJoinTime.setText(joinTime.substring(0, joinTime.indexOf(" ")));
+        }
         String workTime = entity.getWorkTime();
         if (!TextUtils.isEmpty(workTime)) {
             mWorkTime.setText(workTime.substring(0, workTime.indexOf(" ")));

@@ -10,9 +10,9 @@
     </style>
 
     <style name="AppTheme.NoActionBar.Translucent" parent="AppTheme.NoActionBar">
-        <item name="android:windowBackground">@color/color_half_translucent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsTranslucent">true</item>
-        <item name="android:statusBarColor">@color/color_half_translucent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
     <style name="AppTheme.NoActionBar.Fullscreen" parent="AppTheme.NoActionBar">

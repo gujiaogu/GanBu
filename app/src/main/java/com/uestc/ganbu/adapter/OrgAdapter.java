@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.uestc.ganbu.R;
@@ -74,6 +75,8 @@ public class OrgAdapter extends RecyclerView.Adapter<OrgAdapter.OrgViewHolder> {
 
         @BindView(R.id.item_org_name)
         TextView mName;
+        @BindView(R.id.item_org_icon)
+        ImageView mIcon;
 
         public OrgViewHolder(@NonNull View itemView) {
             super(itemView);

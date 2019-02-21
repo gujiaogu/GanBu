@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorPrimary">#027BFF</color>
+    <color name="colorPrimaryDark">#027BFF</color>
     <color name="colorAccent">#D81B60</color>
     <color name="colorPrimary_real">#b0251e</color>
     <color name="color_news_bottom_text">#989898</color>
@@ -24,6 +24,7 @@
     <color name="color_map_search_background">#ccffffff</color>
     <color name="color_user_text_message">#b47266</color>
     <color name="color_main">#111111</color>
+    <color name="color_splash_text">#80BDFF</color>
 
     <!-- circle -->
     <color name="basic_color_primary">#373b3e</color>

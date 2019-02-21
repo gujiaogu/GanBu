@@ -34,7 +34,7 @@
                 style="@style/cadre_info_layout">
                 <TextView
                     style="@style/cadre_info_text_title"
-                    android:text="出生年月"/>
+                    android:text="出生日期"/>
                 <TextView
                     style="@style/cadre_info_text_content"
                     android:id="@+id/info_birthday"/>

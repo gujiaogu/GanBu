@@ -2,8 +2,6 @@ package com.uestc.ganbu.view;
 
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -15,11 +13,13 @@ import com.uestc.ganbu.R;
 import com.uestc.ganbu.adapter.OrgAdapter;
 import com.uestc.ganbu.app.MyApplication;
 import com.uestc.ganbu.base.OnRecyclerViewItemClickListener;
+import com.uestc.ganbu.base.TitleActivity;
 import com.uestc.ganbu.entity.CadreInfo;
 import com.uestc.ganbu.entity.CadreInfoDao;
 import com.uestc.ganbu.entity.DaoSession;
 import com.uestc.ganbu.entity.OrgEntity;
 import com.uestc.ganbu.entity.OrgEntityDao;
+import com.uestc.ganbu.util.ItemDivider;
 import com.uestc.ganbu.util.Stack;
 
 import org.greenrobot.greendao.query.QueryBuilder;
@@ -28,9 +28,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
-public class OrgListActivity extends AppCompatActivity implements OnRecyclerViewItemClickListener<Object> {
+public class OrgListActivity extends TitleActivity implements OnRecyclerViewItemClickListener<Object> {
 
     private static final String SEPARATOR = ">";
 
@@ -47,13 +46,16 @@ public class OrgListActivity extends AppCompatActivity implements OnRecyclerView
     private OrgAdapter mAdapter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_org_list);
-        ButterKnife.bind(this);
+    public void initView() {
+        super.initView();
         daoSession = ((MyApplication) getApplication()).getDaoSession();
         initText();
         initList();
+    }
+
+    @Override
+    public int setContentViewId() {
+        return R.layout.activity_org_list;
     }
 
     @Override
@@ -80,6 +82,7 @@ public class OrgListActivity extends AppCompatActivity implements OnRecyclerView
 
     private void initList(){
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        recyclerView.addItemDecoration(new ItemDivider(mRes.getDrawable(R.drawable.recycler_view_item_divider), (int) mRes.getDimension(R.dimen.item_divider_padding)));
         recyclerView.setLayoutManager(layoutManager);
         mAdapter = new OrgAdapter(this);
         mAdapter.setListener(this);

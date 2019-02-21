@@ -1,19 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
-
-    <TextView
+    tools:context=".MainActivity"
+    android:background="@color/colorPrimary">
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="请选择机构"
-        android:layout_marginTop="100dp"
-        android:textSize="20sp"
-        android:layout_marginLeft="16dp"
-        android:onClick="selectOrg"/>
+        android:background="@mipmap/main_bg"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:fitsSystemWindows="true">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:textColor="@android:color/white"
+            android:text="@string/title_activity_title_main"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:id="@+id/title"/>
+        <TextView
+            style="@style/main_button"
+            android:text="按姓名或身份证查询"
+            android:layout_marginTop="100dp"
+            android:onClick="selectByName"
+            android:layout_below="@id/title"
+            android:id="@+id/button1"/>
 
-</LinearLayout>
+        <TextView
+            style="@style/main_button"
+            android:text="按机构查询"
+            android:layout_marginTop="100dp"
+            android:onClick="selectOrg"
+            android:layout_below="@id/button1"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:text="———— 泸州市干部管理系统 ————"
+            android:textColor="@color/color_splash_text"
+            android:id="@+id/text_2"
+            android:layout_marginBottom="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
+</FrameLayout>
