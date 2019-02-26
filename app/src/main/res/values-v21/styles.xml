@@ -11,7 +11,7 @@
 
     <style name="AppTheme.NoActionBar.Translucent" parent="AppTheme.NoActionBar">
         <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowIsTranslucent">false</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
@@ -19,12 +19,12 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
 
         <item name="android:windowFullscreen">true</item>
-        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowIsTranslucent">false</item>
 
     </style>
 
     <style name="AppTheme.NoActionBar.Fitsystem" parent="AppTheme.NoActionBar">
-        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowIsTranslucent">false</item>
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
