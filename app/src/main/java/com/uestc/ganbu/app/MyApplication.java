@@ -1,16 +1,16 @@
 package com.uestc.ganbu.app;
 
-import android.app.Application;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.multidex.MultiDexApplication;
 
 import com.uestc.ganbu.entity.DaoMaster;
 import com.uestc.ganbu.entity.DaoSession;
 import com.uestc.ganbu.util.AssetsDatabaseManager;
 import com.uestc.ganbu.util.SharedPreferenceUtil;
 
-public class MyApplication extends Application {
+public class MyApplication extends MultiDexApplication {
 
     private DaoSession daoSession;
     private DaoMaster.DevOpenHelper helper;
