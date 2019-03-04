@@ -56,7 +56,7 @@ public class TabFragmentContainer extends BaseFragment {
             tabLayout.addTab(tabLayout.newTab().setText(listWrapper.get(i).getName()));
         }
         viewPager.setOffscreenPageLimit(6);
-        if (listWrapper.size() < 4){
+        if (listWrapper.size() <= 4){
             tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
             tabLayout.setTabMode(TabLayout.MODE_FIXED);
             if (listWrapper.size() == 1){

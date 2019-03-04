@@ -23,6 +23,10 @@ public class BasicInfoFragment extends BaseFragment {
     TextView mGender;
     @BindView(R.id.info_birthday)
     TextView mBirthday;
+    @BindView(R.id.info_marriage)
+    TextView mMarriage;
+    @BindView(R.id.info_political)
+    TextView mPolitical;
     @BindView(R.id.info_nation)
     TextView mNation;
     @BindView(R.id.info_ji_guan)
@@ -43,22 +47,16 @@ public class BasicInfoFragment extends BaseFragment {
     TextView mFullTimeDegree;
     @BindView(R.id.info_full_time_college)
     TextView mFullTimeCollege;
-    @BindView(R.id.info_full_time_major)
-    TextView mFullTimeMajor;
     @BindView(R.id.info_party_time_degree)
     TextView mPartTimeDegree;
     @BindView(R.id.info_party_time_college)
     TextView mPartTimeCollege;
-    @BindView(R.id.info_party_time_major)
-    TextView mPartTimeMajor;
     @BindView(R.id.info_current_position)
     TextView mCurrentPosition;
-    @BindView(R.id.info_future_position)
-    TextView mFuturePosition;
-    @BindView(R.id.info_remove_position)
-    TextView mRemovePosition;
-    @BindView(R.id.info_remove_cause)
-    TextView mRemoveCause;
+    @BindView(R.id.info_current_position_time)
+    TextView mCurrentPositionTime;
+    @BindView(R.id.info_current_level_time)
+    TextView mCurrentLevelTime;
 
     private CadreInfo entity;
 
@@ -98,6 +96,26 @@ public class BasicInfoFragment extends BaseFragment {
         String birthday = entity.getBirthDay();
         if (!TextUtils.isEmpty(birthday)) {
             mBirthday.setText(birthday.substring(0, birthday.indexOf(" ")));
+        }
+        if (!TextUtils.isEmpty(entity.getMaritalStatus())) {
+            Cursor cursor = db.rawQuery("SELECT * FROM ts06 WHERE S0601='25' and S0602=?", new String[]{entity.getMaritalStatus()});
+            int count = cursor.getCount();
+            if (count > 0) {
+                if (cursor.moveToFirst()) {
+                    mMarriage.setText(cursor.getString(cursor.getColumnIndex("S0603")));
+                }
+            }
+            StreamUtil.close(cursor);
+        }
+        if (!TextUtils.isEmpty(entity.getPoliticalStatus())) {
+            Cursor cursor = db.rawQuery("SELECT * FROM ts06 WHERE S0601='20' and S0602=?", new String[]{entity.getPoliticalStatus()});
+            int count = cursor.getCount();
+            if (count > 0) {
+                if (cursor.moveToFirst()) {
+                    mPolitical.setText(cursor.getString(cursor.getColumnIndex("S0603")));
+                }
+            }
+            StreamUtil.close(cursor);
         }
         if (!TextUtils.isEmpty(entity.getNation())) {
             Cursor cursor = db.rawQuery("SELECT * FROM ts06 WHERE S0601='2' and S0602=?", new String[]{entity.getNation()});
@@ -156,8 +174,7 @@ public class BasicInfoFragment extends BaseFragment {
             StreamUtil.close(cursor);
         }
 
-        mFullTimeCollege.setText(getTrueString(entity.getFullTimeSchool()));
-        mFullTimeMajor.setText(getTrueString(entity.getFullTimeMajor()));
+        mFullTimeCollege.setText(getTrueString(entity.getFullTimeSchool()) + getTrueString(entity.getFullTimeMajor()));
         String degreePart = entity.getInServiceDegree();
         if (!TextUtils.isEmpty(degreePart)) {
             Cursor cursor = db.rawQuery("SELECT * FROM ts06 WHERE S0601='29' and S0602=?", new String[]{degreePart});
@@ -169,9 +186,22 @@ public class BasicInfoFragment extends BaseFragment {
             }
             StreamUtil.close(cursor);
         }
-        mPartTimeCollege.setText(getTrueString(entity.getInServiceSchool()));
-        mPartTimeMajor.setText(getTrueString(entity.getInServiceMajor()));
+        mPartTimeCollege.setText(getTrueString(entity.getInServiceSchool()) + getTrueString(entity.getInServiceMajor()));
         mCurrentPosition.setText(getTrueString(entity.getPostTitleDesc()));
+
+        String currentPositionTime = entity.getPostTitleTime();
+        if (!TextUtils.isEmpty(currentPositionTime)) {
+            int index = currentPositionTime.indexOf(" ");
+            if (index < 0) {
+                index = currentPositionTime.length();
+            }
+            mCurrentPositionTime.setText(currentPositionTime.substring(0, index));
+        }
+
+        String currentLevelTime = entity.getPostLevelTime();
+        if (!TextUtils.isEmpty(currentLevelTime)) {
+            mCurrentLevelTime.setText(currentLevelTime.substring(0, currentLevelTime.indexOf(" ")));
+        }
     }
 
     private String getTrueString(String param) {

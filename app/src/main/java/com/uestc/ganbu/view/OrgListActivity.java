@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -32,6 +33,7 @@ import butterknife.BindView;
 public class OrgListActivity extends TitleActivity implements OnRecyclerViewItemClickListener<Object> {
 
     private static final String SEPARATOR = ">";
+    public static final String KEY_PARAM = "key_param";
 
     private Stack<OrgEntity> stack = new Stack<>();
 
@@ -41,14 +43,22 @@ public class OrgListActivity extends TitleActivity implements OnRecyclerViewItem
     TextView selectedOrg;
     @BindView(R.id.org_progress)
     ProgressBar mProgress;
+    @BindView(R.id.title_1)
+    LinearLayout mLayoutTitle;
 
     private DaoSession daoSession;
     private OrgAdapter mAdapter;
+    private long id = 1L;
 
     @Override
     public void initView() {
         super.initView();
         daoSession = ((MyApplication) getApplication()).getDaoSession();
+        id = getIntent().getLongExtra(KEY_PARAM, 1L);
+        if (id > 1) {
+            mLayoutTitle.setVisibility(View.GONE);
+            selectedOrg.setVisibility(View.GONE);
+        }
         initText();
         initList();
     }
@@ -123,7 +133,7 @@ public class OrgListActivity extends TitleActivity implements OnRecyclerViewItem
 
     private void initText() {
         QueryBuilder<OrgEntity> orgQuery = daoSession.queryBuilder(OrgEntity.class);
-        List<OrgEntity> listOrg = orgQuery.where(OrgEntityDao.Properties._id.eq(1)).build().list();
+        List<OrgEntity> listOrg = orgQuery.where(OrgEntityDao.Properties._id.eq(id)).build().list();
         if (listOrg != null && listOrg.size() == 1) {
             OrgEntity firstOrg = listOrg.get(0);
             stack.push(firstOrg);

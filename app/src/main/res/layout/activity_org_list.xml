@@ -14,7 +14,8 @@
         android:paddingBottom="@dimen/vertical_spacing"
         android:paddingTop="@dimen/vertical_spacing"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin">
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:id="@+id/title_1">
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"

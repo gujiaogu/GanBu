@@ -23,20 +23,49 @@
             android:gravity="center"
             android:textSize="20sp"
             android:id="@+id/title"/>
-        <TextView
-            style="@style/main_button"
-            android:text="按姓名或身份证查询"
-            android:layout_marginTop="100dp"
-            android:onClick="selectByName"
-            android:layout_below="@id/title"
-            android:id="@+id/button1"/>
 
-        <TextView
+        <LinearLayout
             style="@style/main_button"
-            android:text="按机构查询"
             android:layout_marginTop="100dp"
-            android:onClick="selectOrg"
-            android:layout_below="@id/button1"/>
+            android:layout_below="@id/title"
+            android:id="@+id/anchor">
+            <EditText
+                style="@style/main_edit_text"
+                android:hint="请输入姓名或身份证"
+                android:id="@+id/edit_text_1"/>
+            <TextView
+                style="@style/main_button_query"
+                android:onClick="selectByName"
+                android:id="@+id/button1"/>
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/main_button"
+            android:layout_marginTop="50dp"
+            android:layout_below="@id/anchor"
+            android:id="@+id/layout_org_search">
+            <EditText
+                style="@style/main_edit_text"
+                android:hint="请输入机构名称"
+                android:id="@+id/edit_text_2"/>
+            <TextView
+                style="@style/main_button_query"
+                android:onClick="selectOrg"
+                android:id="@+id/button2"/>
+        </LinearLayout>
+        
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:overScrollMode="never"
+            android:id="@+id/recyclerView"
+            android:layout_marginLeft="48dp"
+            android:layout_marginRight="48dp"
+            android:layout_marginTop="4dp"
+            android:elevation="5dp"
+            android:layout_below="@id/layout_org_search"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

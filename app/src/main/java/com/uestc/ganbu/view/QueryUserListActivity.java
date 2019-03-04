@@ -26,6 +26,8 @@ import butterknife.BindView;
 
 public class QueryUserListActivity extends TitleActivity implements OnRecyclerViewItemClickListener<CadreInfo> {
 
+    public static final String KEY_SEARCH_TEXT = "key_search_text";
+
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     @BindView(R.id.query_edit)
@@ -35,6 +37,7 @@ public class QueryUserListActivity extends TitleActivity implements OnRecyclerVi
 
     private DaoSession daoSession;
     private SearchAdapter mAdapter;
+    private String searchText = "";
 
     @Override
     public int setContentViewId() {
@@ -45,7 +48,13 @@ public class QueryUserListActivity extends TitleActivity implements OnRecyclerVi
     public void initView() {
         super.initView();
         daoSession = application.getDaoSession();
+        searchText = getIntent().getStringExtra(KEY_SEARCH_TEXT);
         initList();
+        if (!TextUtils.isEmpty(searchText)) {
+            mEdit.setText(searchText);
+            mEdit.setSelection(searchText.length());
+            new SearchTask().execute(searchText);
+        }
 
         mBtnSearch.setOnClickListener(v -> {
             String text = mEdit.getText().toString().trim();

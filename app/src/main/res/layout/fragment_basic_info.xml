@@ -43,6 +43,24 @@
                 style="@style/cadre_info_layout">
                 <TextView
                     style="@style/cadre_info_text_title"
+                    android:text="婚姻状况"/>
+                <TextView
+                    style="@style/cadre_info_text_content"
+                    android:id="@+id/info_marriage"/>
+            </LinearLayout>
+            <LinearLayout
+                style="@style/cadre_info_layout">
+                <TextView
+                    style="@style/cadre_info_text_title"
+                    android:text="政治面貌"/>
+                <TextView
+                    style="@style/cadre_info_text_content"
+                    android:id="@+id/info_political"/>
+            </LinearLayout>
+            <LinearLayout
+                style="@style/cadre_info_layout">
+                <TextView
+                    style="@style/cadre_info_text_title"
                     android:text="民族"/>
                 <TextView
                     style="@style/cadre_info_text_content"
@@ -85,7 +103,8 @@
                     android:id="@+id/info_work_time"/>
             </LinearLayout>
             <LinearLayout
-                style="@style/cadre_info_layout">
+                style="@style/cadre_info_layout"
+                android:visibility="gone">
                 <TextView
                     style="@style/cadre_info_text_title"
                     android:text="健康状况"/>
@@ -94,7 +113,8 @@
                     android:id="@+id/info_health_status"/>
             </LinearLayout>
             <LinearLayout
-                style="@style/cadre_info_layout">
+                style="@style/cadre_info_layout"
+                android:visibility="gone">
                 <TextView
                     style="@style/cadre_info_text_title"
                     android:text="专业技术职务"/>
@@ -103,7 +123,8 @@
                     android:id="@+id/info_tech_position"/>
             </LinearLayout>
             <LinearLayout
-                style="@style/cadre_info_layout">
+                style="@style/cadre_info_layout"
+                android:visibility="gone">
                 <TextView
                     style="@style/cadre_info_text_title"
                     android:text="熟悉专业有何专长"/>
@@ -124,19 +145,10 @@
                 style="@style/cadre_info_layout">
                 <TextView
                     style="@style/cadre_info_text_title"
-                    android:text="毕业院校"/>
+                    android:text="毕业院校及专业"/>
                 <TextView
                     style="@style/cadre_info_text_content"
                     android:id="@+id/info_full_time_college"/>
-            </LinearLayout>
-            <LinearLayout
-                style="@style/cadre_info_layout">
-                <TextView
-                    style="@style/cadre_info_text_title"
-                    android:text="专业"/>
-                <TextView
-                    style="@style/cadre_info_text_content"
-                    android:id="@+id/info_full_time_major"/>
             </LinearLayout>
             <LinearLayout
                 style="@style/cadre_info_layout">
@@ -151,19 +163,10 @@
                 style="@style/cadre_info_layout">
                 <TextView
                     style="@style/cadre_info_text_title"
-                    android:text="毕业院校"/>
+                    android:text="毕业院校及专业"/>
                 <TextView
                     style="@style/cadre_info_text_content"
                     android:id="@+id/info_party_time_college"/>
-            </LinearLayout>
-            <LinearLayout
-                style="@style/cadre_info_layout">
-                <TextView
-                    style="@style/cadre_info_text_title"
-                    android:text="专业"/>
-                <TextView
-                    style="@style/cadre_info_text_content"
-                    android:id="@+id/info_party_time_major"/>
             </LinearLayout>
             <LinearLayout
                 style="@style/cadre_info_layout">
@@ -178,28 +181,19 @@
                 style="@style/cadre_info_layout">
                 <TextView
                     style="@style/cadre_info_text_title"
-                    android:text="拟任职务"/>
+                    android:text="现任职时间"/>
                 <TextView
                     style="@style/cadre_info_text_content"
-                    android:id="@+id/info_future_position"/>
+                    android:id="@+id/info_current_position_time"/>
             </LinearLayout>
             <LinearLayout
                 style="@style/cadre_info_layout">
                 <TextView
                     style="@style/cadre_info_text_title"
-                    android:text="拟免职务"/>
+                    android:text="任现级时间"/>
                 <TextView
                     style="@style/cadre_info_text_content"
-                    android:id="@+id/info_remove_position"/>
-            </LinearLayout>
-            <LinearLayout
-                style="@style/cadre_info_layout">
-                <TextView
-                    style="@style/cadre_info_text_title"
-                    android:text="任免理由"/>
-                <TextView
-                    style="@style/cadre_info_text_content"
-                    android:id="@+id/info_remove_cause"/>
+                    android:id="@+id/info_current_level_time"/>
             </LinearLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
