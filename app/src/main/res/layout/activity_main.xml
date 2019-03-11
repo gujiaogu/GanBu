@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="@color/colorPrimary">
-    <ImageView
+    android:fitsSystemWindows="true"
+    tools:context=".MainActivity">
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@mipmap/main_bg"/>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:fitsSystemWindows="true">
+        android:id="@+id/title_area">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/main_head"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
@@ -22,59 +22,62 @@
             android:text="@string/title_activity_title_main"
             android:gravity="center"
             android:textSize="20sp"
-            android:id="@+id/title"/>
+            android:id="@+id/title"
+            android:layout_gravity="center"/>
+    </FrameLayout>
 
-        <LinearLayout
-            style="@style/main_button"
-            android:layout_marginTop="100dp"
-            android:layout_below="@id/title"
-            android:id="@+id/anchor">
-            <EditText
-                style="@style/main_edit_text"
-                android:hint="请输入姓名或身份证"
-                android:id="@+id/edit_text_1"/>
-            <TextView
-                style="@style/main_button_query"
-                android:onClick="selectByName"
-                android:id="@+id/button1"/>
-        </LinearLayout>
-
-        <LinearLayout
-            style="@style/main_button"
-            android:layout_marginTop="50dp"
-            android:layout_below="@id/anchor"
-            android:id="@+id/layout_org_search">
-            <EditText
-                style="@style/main_edit_text"
-                android:hint="请输入机构名称"
-                android:id="@+id/edit_text_2"/>
-            <TextView
-                style="@style/main_button_query"
-                android:onClick="selectOrg"
-                android:id="@+id/button2"/>
-        </LinearLayout>
-        
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="none"
-            android:overScrollMode="never"
-            android:id="@+id/recyclerView"
-            android:layout_marginLeft="48dp"
-            android:layout_marginRight="48dp"
-            android:layout_marginTop="4dp"
-            android:elevation="5dp"
-            android:layout_below="@id/layout_org_search"/>
-
+    <LinearLayout
+        style="@style/main_button"
+        android:layout_marginTop="50dp"
+        android:layout_below="@id/title_area"
+        android:id="@+id/anchor">
+        <EditText
+            style="@style/main_edit_text"
+            android:hint="请输入姓名或身份证"
+            android:id="@+id/edit_text_1"/>
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:text="———— 泸州市干部管理系统 ————"
-            android:textColor="@color/color_splash_text"
-            android:id="@+id/text_2"
-            android:layout_marginBottom="30dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"/>
-    </RelativeLayout>
-</FrameLayout>
+            style="@style/main_button_query"
+            android:onClick="selectByName"
+            android:id="@+id/button1"/>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/main_button"
+        android:layout_marginTop="50dp"
+        android:layout_below="@id/anchor"
+        android:id="@+id/layout_org_search">
+        <EditText
+            style="@style/main_edit_text"
+            android:hint="请输入机构名称"
+            android:id="@+id/edit_text_2"/>
+        <TextView
+            style="@style/main_button_query"
+            android:onClick="selectOrg"
+            android:id="@+id/button2"/>
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:overScrollMode="never"
+        android:id="@+id/org_list"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_below="@id/layout_org_search"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:overScrollMode="never"
+        android:id="@+id/recyclerView"
+        android:layout_marginLeft="48dp"
+        android:layout_marginRight="48dp"
+        android:layout_marginTop="4dp"
+        android:elevation="5dp"
+        android:translationZ="20dp"
+        android:layout_below="@id/layout_org_search"/>
+
+</RelativeLayout>
