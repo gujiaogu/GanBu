@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.uestc.ganbu.R;
 import com.uestc.ganbu.entity.CadreResume;
+import com.uestc.ganbu.util.TimeFormatUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,13 +40,21 @@ public class ResumeAdapter extends RecyclerView.Adapter<ResumeAdapter.ResumeView
         CadreResume entity = mData.get(i);
         String startTime = entity.getBeginTime();
         if (!TextUtils.isEmpty(startTime)) {
-            startTime = startTime.substring(0, startTime.indexOf(" "));
+            try {
+                startTime = TimeFormatUtil.sdf4.format(TimeFormatUtil.sdf6.parse(startTime));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else {
             startTime = "";
         }
         String endTime = entity.getEndTime();
         if (!TextUtils.isEmpty(endTime)) {
-            endTime = endTime.substring(0, endTime.indexOf(" "));
+            try {
+                endTime = TimeFormatUtil.sdf4.format(TimeFormatUtil.sdf6.parse(endTime));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else {
             endTime = "";
         }

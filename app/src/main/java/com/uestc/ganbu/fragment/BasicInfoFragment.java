@@ -10,6 +10,7 @@ import com.uestc.ganbu.R;
 import com.uestc.ganbu.base.BaseFragment;
 import com.uestc.ganbu.entity.CadreInfo;
 import com.uestc.ganbu.util.StreamUtil;
+import com.uestc.ganbu.util.TimeFormatUtil;
 
 import butterknife.BindView;
 
@@ -95,7 +96,11 @@ public class BasicInfoFragment extends BaseFragment {
         mGender.setText("1".equals(entity.getSex()) ? "男" : "女");
         String birthday = entity.getBirthDay();
         if (!TextUtils.isEmpty(birthday)) {
-            mBirthday.setText(birthday.substring(0, birthday.indexOf(" ")));
+            try {
+                mBirthday.setText(TimeFormatUtil.sdf4.format(TimeFormatUtil.sdf6.parse(birthday)));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         if (!TextUtils.isEmpty(entity.getMaritalStatus())) {
             Cursor cursor = db.rawQuery("SELECT * FROM ts06 WHERE S0601='25' and S0602=?", new String[]{entity.getMaritalStatus()});
@@ -131,11 +136,19 @@ public class BasicInfoFragment extends BaseFragment {
         mBirthPlace.setText(getTrueString(entity.getBirthplace()));
         String joinTime = entity.getJoinOrganizationTime();
         if (!TextUtils.isEmpty(joinTime)) {
-            mJoinTime.setText(joinTime.substring(0, joinTime.indexOf(" ")));
+            try {
+                mJoinTime.setText(TimeFormatUtil.sdf4.format(TimeFormatUtil.sdf6.parse(joinTime)));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         String workTime = entity.getWorkTime();
         if (!TextUtils.isEmpty(workTime)) {
-            mWorkTime.setText(workTime.substring(0, workTime.indexOf(" ")));
+            try {
+                mWorkTime.setText(TimeFormatUtil.sdf4.format(TimeFormatUtil.sdf6.parse(workTime)));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         String healthStatus = entity.getHealth();
         if (!TextUtils.isEmpty(healthStatus)) {
@@ -195,12 +208,20 @@ public class BasicInfoFragment extends BaseFragment {
             if (index < 0) {
                 index = currentPositionTime.length();
             }
-            mCurrentPositionTime.setText(currentPositionTime.substring(0, index));
+            try {
+                mCurrentPositionTime.setText(TimeFormatUtil.sdf4.format(TimeFormatUtil.sdf4.parse(currentPositionTime)));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         String currentLevelTime = entity.getPostLevelTime();
         if (!TextUtils.isEmpty(currentLevelTime)) {
-            mCurrentLevelTime.setText(currentLevelTime.substring(0, currentLevelTime.indexOf(" ")));
+            try {
+                mCurrentLevelTime.setText(TimeFormatUtil.sdf4.format(TimeFormatUtil.sdf6.parse(currentLevelTime)));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
