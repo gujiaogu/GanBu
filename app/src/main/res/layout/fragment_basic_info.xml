@@ -103,6 +103,33 @@
                     android:id="@+id/info_work_time"/>
             </LinearLayout>
             <LinearLayout
+                style="@style/cadre_info_layout">
+                <TextView
+                    style="@style/cadre_info_text_title"
+                    android:text="现任职务"/>
+                <TextView
+                    style="@style/cadre_info_text_content"
+                    android:id="@+id/info_current_position"/>
+            </LinearLayout>
+            <LinearLayout
+                style="@style/cadre_info_layout">
+                <TextView
+                    style="@style/cadre_info_text_title"
+                    android:text="任现职时间"/>
+                <TextView
+                    style="@style/cadre_info_text_content"
+                    android:id="@+id/info_current_position_time"/>
+            </LinearLayout>
+            <LinearLayout
+                style="@style/cadre_info_layout">
+                <TextView
+                    style="@style/cadre_info_text_title"
+                    android:text="任现级时间"/>
+                <TextView
+                    style="@style/cadre_info_text_content"
+                    android:id="@+id/info_current_level_time"/>
+            </LinearLayout>
+            <LinearLayout
                 style="@style/cadre_info_layout"
                 android:visibility="gone">
                 <TextView
@@ -167,33 +194,6 @@
                 <TextView
                     style="@style/cadre_info_text_content"
                     android:id="@+id/info_party_time_college"/>
-            </LinearLayout>
-            <LinearLayout
-                style="@style/cadre_info_layout">
-                <TextView
-                    style="@style/cadre_info_text_title"
-                    android:text="现任职务"/>
-                <TextView
-                    style="@style/cadre_info_text_content"
-                    android:id="@+id/info_current_position"/>
-            </LinearLayout>
-            <LinearLayout
-                style="@style/cadre_info_layout">
-                <TextView
-                    style="@style/cadre_info_text_title"
-                    android:text="现任职时间"/>
-                <TextView
-                    style="@style/cadre_info_text_content"
-                    android:id="@+id/info_current_position_time"/>
-            </LinearLayout>
-            <LinearLayout
-                style="@style/cadre_info_layout">
-                <TextView
-                    style="@style/cadre_info_text_title"
-                    android:text="任现级时间"/>
-                <TextView
-                    style="@style/cadre_info_text_content"
-                    android:id="@+id/info_current_level_time"/>
             </LinearLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

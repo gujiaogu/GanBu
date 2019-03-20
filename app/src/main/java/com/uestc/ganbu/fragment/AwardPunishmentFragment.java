@@ -8,7 +8,10 @@ import android.text.TextUtils;
 
 import com.uestc.ganbu.R;
 import com.uestc.ganbu.adapter.AwardPunishmentAdapter;
+import com.uestc.ganbu.adapter.CheckResultAdapter;
 import com.uestc.ganbu.base.BaseFragment;
+import com.uestc.ganbu.entity.CadreAppraisal;
+import com.uestc.ganbu.entity.CadreAppraisalDao;
 import com.uestc.ganbu.entity.CadreInfo;
 import com.uestc.ganbu.entity.CadrePunishment;
 import com.uestc.ganbu.entity.CadreReward;
@@ -28,10 +31,14 @@ public class AwardPunishmentFragment extends BaseFragment {
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
+    @BindView(R.id.recyclerView2)
+    RecyclerView recyclerView2;
 
     private CadreInfo entity;
     private DaoSession daoSession;
     private AwardPunishmentAdapter mAdapter;
+
+    private CheckResultAdapter mAdapter2;
 
     public AwardPunishmentFragment() {
     }
@@ -60,6 +67,7 @@ public class AwardPunishmentFragment extends BaseFragment {
     public void initView() {
         daoSession = application.getDaoSession();
         initList();
+        initList2();
     }
 
     private void initList() {
@@ -102,6 +110,42 @@ public class AwardPunishmentFragment extends BaseFragment {
         protected void onPostExecute(List<Object> objects) {
             super.onPostExecute(objects);
             mAdapter.setNewData(objects);
+        }
+    }
+
+    private void initList2() {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(mCtx, LinearLayoutManager.VERTICAL, false);
+        recyclerView2.addItemDecoration(new ItemDivider(mRes.getDrawable(R.drawable.recycler_view_item_divider), (int) mRes.getDimension(R.dimen.item_divider_padding)));
+        recyclerView2.setLayoutManager(layoutManager);
+        mAdapter2 = new CheckResultAdapter(mCtx);
+        recyclerView2.setAdapter(mAdapter2);
+
+        if (entity == null) {
+            return;
+        }
+        new CheckResultTask().execute(String.valueOf(entity.get_id()));
+    }
+
+    private class CheckResultTask extends AsyncTask<String, Void, List<CadreAppraisal>> {
+        @Override
+        protected List<CadreAppraisal> doInBackground(String... strings) {
+            String cadreId = strings[0];
+            QueryBuilder<CadreAppraisal> resumeQuery = daoSession.queryBuilder(CadreAppraisal.class);
+            List<CadreAppraisal> list = resumeQuery.where(CadreAppraisalDao.Properties.C0611.eq(cadreId)).build().list();
+            return list;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(List<CadreAppraisal> list) {
+            super.onPostExecute(list);
+            if (list != null && list.size() > 0) {
+                mAdapter2.setNewData(list);
+            }
         }
     }
 }

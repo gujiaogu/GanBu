@@ -11,5 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/color_tab_text"
-        android:id="@+id/item_award_punishment"/>
+        android:id="@+id/item_award_punishment"
+        android:textSize="@dimen/text_size"
+        />
 </LinearLayout>

@@ -5,31 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/colorPrimary">
 
-    <FrameLayout
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/title_area">
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@mipmap/main_head"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="?android:attr/actionBarSize"
-            android:textColor="@android:color/white"
-            android:text="@string/title_activity_title_main"
-            android:gravity="center"
-            android:textSize="20sp"
-            android:id="@+id/title"
-            android:layout_gravity="center"/>
-    </FrameLayout>
+        android:layout_height="?android:attr/actionBarSize"
+        android:textColor="@android:color/white"
+        android:text="泸州市干部信息查询系统"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:id="@+id/title"
+        android:layout_gravity="center"/>
 
     <LinearLayout
         style="@style/main_button"
-        android:layout_marginTop="50dp"
-        android:layout_below="@id/title_area"
+        android:layout_marginTop="30dp"
+        android:layout_below="@id/title"
         android:id="@+id/anchor">
         <EditText
             style="@style/main_edit_text"
@@ -43,7 +35,7 @@
 
     <LinearLayout
         style="@style/main_button"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:layout_below="@id/anchor"
         android:id="@+id/layout_org_search">
         <EditText
