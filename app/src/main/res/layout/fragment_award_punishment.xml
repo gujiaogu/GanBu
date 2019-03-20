@@ -6,6 +6,17 @@
     android:orientation="vertical"
     tools:context=".fragment.AwardPunishmentFragment">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingBottom="@dimen/vertical_spacing"
+        android:paddingTop="@dimen/vertical_spacing"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/text_size"
+        android:text="考核情况:"/>
+
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,6 +27,16 @@
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:background="@color/grey_300" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingBottom="@dimen/vertical_spacing"
+        android:paddingTop="@dimen/vertical_spacing"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/text_size"
+        android:text="奖惩情况:"/>
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

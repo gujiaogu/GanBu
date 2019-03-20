@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.uestc.ganbu.R;
 import com.uestc.ganbu.entity.CadreFamily;
 import com.uestc.ganbu.util.StreamUtil;
+import com.uestc.ganbu.util.TimeFormatUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +46,11 @@ public class FamilyAdapter extends RecyclerView.Adapter<FamilyAdapter.FamilyView
         holder.mName.setText(entity.getName());
         String birthday = entity.getBirthDay();
         if (!TextUtils.isEmpty(birthday)) {
-            birthday = birthday.substring(0, birthday.indexOf(" "));
+            try {
+                birthday = TimeFormatUtil.sdf.format(TimeFormatUtil.sdf6.parse(birthday));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else {
             birthday = "";
         }
