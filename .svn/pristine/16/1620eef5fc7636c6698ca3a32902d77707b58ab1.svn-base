@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".MainActivity"
+    android:background="@color/colorPrimary">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:textColor="@android:color/white"
+        android:text="泸州市干部信息查询系统"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:id="@+id/title"
+        android:layout_gravity="center"/>
+
+    <LinearLayout
+        style="@style/main_button"
+        android:layout_marginTop="30dp"
+        android:layout_below="@id/title"
+        android:id="@+id/anchor">
+        <EditText
+            style="@style/main_edit_text"
+            android:hint="请输入姓名或身份证"
+            android:id="@+id/edit_text_1"/>
+        <TextView
+            style="@style/main_button_query"
+            android:onClick="selectByName"
+            android:id="@+id/button1"/>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/main_button"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/anchor"
+        android:id="@+id/layout_org_search">
+        <EditText
+            style="@style/main_edit_text"
+            android:hint="请输入机构名称"
+            android:id="@+id/edit_text_2"/>
+        <TextView
+            style="@style/main_button_query"
+            android:onClick="selectOrg"
+            android:id="@+id/button2"/>
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:overScrollMode="never"
+        android:id="@+id/org_list"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_below="@id/layout_org_search"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:overScrollMode="never"
+        android:id="@+id/recyclerView"
+        android:layout_marginLeft="48dp"
+        android:layout_marginRight="48dp"
+        android:layout_marginTop="4dp"
+        android:elevation="5dp"
+        android:translationZ="20dp"
+        android:layout_below="@id/layout_org_search"/>
+
+</RelativeLayout>

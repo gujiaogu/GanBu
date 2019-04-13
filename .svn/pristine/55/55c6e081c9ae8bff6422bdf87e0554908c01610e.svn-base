@@ -1,0 +1,175 @@
+package com.uestc.ganbu.view;
+
+import android.Manifest;
+import android.app.Dialog;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.telephony.TelephonyManager;
+import android.text.TextUtils;
+import android.util.Log;
+import android.widget.Button;
+import android.widget.EditText;
+
+import com.uestc.ganbu.MainActivity;
+import com.uestc.ganbu.R;
+import com.uestc.ganbu.app.MyApplication;
+import com.uestc.ganbu.entity.DaoSession;
+import com.uestc.ganbu.entity.MobilePhoneEntity;
+import com.uestc.ganbu.entity.MobilePhoneEntityDao;
+import com.uestc.ganbu.util.SharedPreferenceUtil;
+import com.uestc.ganbu.util.ToastUtil;
+
+import org.greenrobot.greendao.query.QueryBuilder;
+
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.OnNeverAskAgain;
+import permissions.dispatcher.OnPermissionDenied;
+import permissions.dispatcher.OnShowRationale;
+import permissions.dispatcher.PermissionRequest;
+import permissions.dispatcher.RuntimePermissions;
+
+@RuntimePermissions
+public class LoginActivity extends AppCompatActivity {
+
+    public static final String KEY_LOGIN_INFO = "key_login_info";
+
+    @BindView(R.id.button_login)
+    Button mBtnLogin;
+    @BindView(R.id.edit_login)
+    EditText mText;
+
+    private DaoSession daoSession;
+    private SharedPreferenceUtil sharedPreferenceUtil;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
+        sharedPreferenceUtil = new SharedPreferenceUtil(this);
+        daoSession = ((MyApplication) getApplication()).getDaoSession();
+
+        mBtnLogin.setOnClickListener(v -> {
+            LoginActivityPermissionsDispatcher.showStorageWithPermissionCheck(LoginActivity.this);
+        });
+    }
+
+    private class LoginTask extends AsyncTask<String, Void, Boolean> {
+
+        private String mobile = "";
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            super.onPostExecute(aBoolean);
+            if (aBoolean) {
+                sharedPreferenceUtil.putString(KEY_LOGIN_INFO, mobile);
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            } else {
+                ToastUtil.textToast(LoginActivity.this, "请检查手机号码");
+            }
+        }
+
+        @Override
+        protected Boolean doInBackground(String... strings) {
+            mobile = strings[0];
+            boolean flag = false;
+            QueryBuilder<MobilePhoneEntity> queryBuilder = daoSession.queryBuilder(MobilePhoneEntity.class);
+            List<MobilePhoneEntity> list = queryBuilder.where(MobilePhoneEntityDao.Properties.Mobile.eq(mobile)).build().list();
+            if (list != null && list.size() > 0) {
+                flag = true;
+            }
+            return flag;
+        }
+    }
+
+    private void check() {
+        // 只有检查一个权限，多了这里逻辑就会出错了。
+        TelephonyManager telephonyManager = (TelephonyManager) this
+                .getSystemService(TELEPHONY_SERVICE);// 取得相关系统服务
+
+        String simOperatorName = telephonyManager.getSimOperatorName();
+        try {
+
+            String imei = telephonyManager.getDeviceId();       //取出 IMEI
+//            String imeiAPI26 = telephonyManager.getImei();       //取出 IMEI 需要 api26以上
+            String tel = telephonyManager.getLine1Number();     //取出 MSISDN，很可能为空
+            String imsi = telephonyManager.getSubscriberId();     //取出 IMSI
+            String icc = telephonyManager.getSimSerialNumber();  //取出 ICCID
+            Log.d("Q_M", "运行商名字--" + simOperatorName);
+            Log.d("Q_M", "IMEI--" + imei);
+//            Log.d("Q_M", "IMEI_API26--" + imeiAPI26);
+            Log.d("Q_M", "IMSI--" + imsi);
+            Log.d("Q_M", "ICCID--" + icc);
+            Log.d("Q_M", "tel--" + tel);
+
+            String mobile = mText.getText().toString().trim();
+            if (TextUtils.isEmpty(mobile)) {
+                ToastUtil.textToast(LoginActivity.this, "请输入电话号码");
+                return;
+            }
+
+            if (!mobile.equals(tel)) {
+                ToastUtil.textToast(LoginActivity.this, "您输入的手机号与你当前手机的手机号不符");
+                return;
+            }
+            new LoginTask().execute(mobile);
+        } catch (Exception e) {
+
+        }
+    }
+
+    @NeedsPermission({Manifest.permission.READ_PHONE_STATE})
+    void showStorage() {
+        check();
+    }
+
+    @OnShowRationale({Manifest.permission.READ_PHONE_STATE})
+    void showRationaleForStorage(final PermissionRequest request) {
+        new AlertDialog.Builder(this)
+                .setMessage("我们需要一些基本权限来保证应用正常运行")
+                .setPositiveButton("允许", (dialog, which) -> request.proceed())
+                .setNegativeButton("拒绝", (dialog, which) -> request.cancel())
+                .show().setCanceledOnTouchOutside(false);
+    }
+
+    @OnPermissionDenied({Manifest.permission.READ_PHONE_STATE})
+    void showDeniedForStorage() {
+    }
+
+    @OnNeverAskAgain({Manifest.permission.READ_PHONE_STATE})
+    void showNeverAskForStorage() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+        builder.setMessage("我们需要一些基本权限来保证应用正常运行");
+        builder.setPositiveButton("去设置", (dialog, which) -> {
+            Intent intent = new Intent();
+            intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+            intent.setData(Uri.fromParts("package", getPackageName(), null));
+            startActivity(intent);
+            dialog.dismiss();
+        });
+        Dialog settingDialog = builder.show();
+        settingDialog.setCanceledOnTouchOutside(false);
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        LoginActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+    }
+}
