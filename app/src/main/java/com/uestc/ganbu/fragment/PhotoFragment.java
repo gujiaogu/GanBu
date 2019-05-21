@@ -49,7 +49,7 @@ public class PhotoFragment extends BaseFragment {
     public void initView() {
         String photo = mParam1.getPhoto();
         if (!TextUtils.isEmpty(photo)) {
-            String name = photo.substring(photo.indexOf("/") + 1);
+            String name = photo.substring(photo.lastIndexOf("/") + 1);
             try {
                 Bitmap bitmap = BitmapFactory.decodeStream(getActivity().getAssets().open(name));
                 GlideApp.with(this).load(bitmap).into(mPhoto);

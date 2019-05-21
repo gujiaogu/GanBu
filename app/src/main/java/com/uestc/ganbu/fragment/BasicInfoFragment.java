@@ -9,8 +9,13 @@ import android.widget.TextView;
 import com.uestc.ganbu.R;
 import com.uestc.ganbu.base.BaseFragment;
 import com.uestc.ganbu.entity.CadreInfo;
+import com.uestc.ganbu.entity.EventMarriage;
+import com.uestc.ganbu.util.EventBusUtil;
 import com.uestc.ganbu.util.StreamUtil;
 import com.uestc.ganbu.util.TimeFormatUtil;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 
@@ -78,11 +83,23 @@ public class BasicInfoFragment extends BaseFragment {
         if (getArguments() != null) {
             entity = getArguments().getParcelable(ARG_PARAM1);
         }
+        EventBusUtil.register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBusUtil.unregister(this);
     }
 
     @Override
     public int setContentView() {
         return R.layout.fragment_basic_info;
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshList(EventMarriage event) {
+        mMarriage.setText("已婚");
     }
 
     @Override
@@ -107,7 +124,12 @@ public class BasicInfoFragment extends BaseFragment {
             int count = cursor.getCount();
             if (count > 0) {
                 if (cursor.moveToFirst()) {
-                    mMarriage.setText(cursor.getString(cursor.getColumnIndex("S0603")));
+                    String tmp = cursor.getString(cursor.getColumnIndex("S0603"));
+                    if (TextUtils.isEmpty(tmp)) {
+                        mMarriage.setText("已婚");
+                    } else {
+                        mMarriage.setText("未婚");
+                    }
                 }
             }
             StreamUtil.close(cursor);
@@ -188,7 +210,7 @@ public class BasicInfoFragment extends BaseFragment {
         }
 
         mFullTimeCollege.setText(getTrueString(entity.getFullTimeSchool()) + getTrueString(entity.getFullTimeMajor()));
-        String degreePart = entity.getInServiceDegree();
+        String degreePart = entity.getInServiceEducation();
         if (!TextUtils.isEmpty(degreePart)) {
             Cursor cursor = db.rawQuery("SELECT * FROM ts06 WHERE S0601='29' and S0602=?", new String[]{degreePart});
             int count = cursor.getCount();

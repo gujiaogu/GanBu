@@ -12,3 +12,5 @@ app/release
 /build
 /captures
 .externalNativeBuild
+/.svn
+app/src/main/assets/ganbu.db

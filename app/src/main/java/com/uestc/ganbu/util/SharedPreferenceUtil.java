@@ -30,4 +30,12 @@ public class SharedPreferenceUtil {
     public String getString(String key) {
         return sharedPreferences.getString(key, "");
     }
+
+    public void putBoolean(String key, boolean isUpdated) {
+        sharedPreferences.edit().putBoolean(key, isUpdated).apply();
+    }
+
+    public boolean getBoolean(String key) {
+        return sharedPreferences.getBoolean(key, false);
+    }
 }

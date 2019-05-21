@@ -183,9 +183,14 @@ public class MainActivity extends AppCompatActivity implements OnRecyclerViewIte
 //                    "select *, tc07.C0714 as seq from tc01 join tc07 on tc01.BS01=tc07.C0711 " +
 //                    "where tc07.A0711=? group by tc01.BS01 order by seq ASC, tc01.A0901 ASC, tc01.C0113 ASC", new String[]{parentId});
 
-            Cursor cursor = daoSession.getDatabase().rawQuery("" +
-                    "select *, tc01.A0704 as postDesc, tc07.C0714 as seq from tc01 join tc07 on tc01.BS01=tc07.C0711 " +
-                    "where tc07.A0711=? group by tc01.BS01 order by seq ASC, tc01.A0901 ASC, tc01.C0113 ASC", new String[]{parentId});
+            String sql = "select " +
+                    "T.\"BS01\",T.\"BS02\",T.\"BS03\",T.\"BS04\",T.\"BS05\",T.\"BS06\"," +
+                    "T.\"A0101\",T.\"A0104\",T.\"A0107\",T.\"A0111\",T.\"A0114\",T.\"A0117\",T.\"A0121\",T.\"A0124\",T.\"A0127\",T.\"A0141\",T.\"A0148\",T.\"A0171\",T.\"A0177\",T.\"A2205\",T.\"A2210\",T.\"A1005\",T.\"A0703\",T.\"A0704\"  as postDesc ,T.\"A0901\",T.\"A0708\",T.\"A0711\"," +
+                    "T.\"C0101\",T.\"C0102\",T.\"C0103\",T.\"C0104\",T.\"C0105\",T.\"C0106\",T.\"C0107\",T.\"C0108\",T.\"C0109\",T.\"C0110\",T.\"C0111\",T.\"C0112\",T.\"C0113\",T.\"C0114\",T.\"C0115\",T.\"C0180\",T.\"C0181\",T.\"C0182\",T.\"C0183\",T.\"C0184\",T.\"C0185\",T.\"C0186\",T.\"C0187\",T.\"C0188\",T.\"C0189\",T.\"C0190\"" +
+                    ", tc07.C0714 as seq " +
+                    "from tc01 T join tc07 on T.BS01=tc07.C0711 " +
+                    "where tc07.A0711=? group by T.BS01 order by seq ASC, T.A0901 ASC, T.C0113 ASC";
+            Cursor cursor = daoSession.getDatabase().rawQuery(sql, new String[]{parentId});
 
             if (cursor.getCount() > 0) {
                 CadreInfo cadreInfo;
@@ -219,6 +224,7 @@ public class MainActivity extends AppCompatActivity implements OnRecyclerViewIte
                     cadreInfo.setPostLevel(cursor.getString(cursor.getColumnIndex("A0901")));
                     cadreInfo.setPostTitleTime(cursor.getString(cursor.getColumnIndex("A0708")));
                     cadreInfo.setOrgId(cursor.getString(cursor.getColumnIndex("A0711")));
+
                     cadreInfo.setIdentityType(cursor.getString(cursor.getColumnIndex("C0101")));
                     cadreInfo.setOtherIdentities(cursor.getString(cursor.getColumnIndex("C0102")));
                     cadreInfo.setFullTimeEducation(cursor.getString(cursor.getColumnIndex("C0103")));

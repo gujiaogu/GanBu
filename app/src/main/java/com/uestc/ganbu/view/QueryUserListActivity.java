@@ -19,7 +19,9 @@ import com.uestc.ganbu.util.ItemDivider;
 import com.uestc.ganbu.util.ToastUtil;
 
 import org.greenrobot.greendao.query.QueryBuilder;
+import org.greenrobot.greendao.query.WhereCondition;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -97,10 +99,20 @@ public class QueryUserListActivity extends TitleActivity implements OnRecyclerVi
 
         @Override
         protected List<CadreInfo> doInBackground(String... strings) {
-            String param = "%" + strings[0] + "%";
+            List<CadreInfo> list = new ArrayList<>();
+            if (TextUtils.isEmpty(strings[0])) {
+                return list;
+            }
             QueryBuilder<CadreInfo> cadreQuery = daoSession.queryBuilder(CadreInfo.class);
-            List<CadreInfo> list = cadreQuery.whereOr(CadreInfoDao.Properties.Name.like(param),
-                    CadreInfoDao.Properties.IdNumber.like(param)).build().list();
+
+            String reg = "[a-zA-Z]+";
+            String param = strings[0] + "%";
+            if (strings[0].matches(reg)) {
+                list = cadreQuery.where(new WhereCondition.StringCondition("T.pinyin like '" + param + "'")).build().list();
+            } else {
+                list = cadreQuery.whereOr(CadreInfoDao.Properties.Name.like(param),
+                        CadreInfoDao.Properties.IdNumber.like(param)).build().list();
+            }
             return list;
         }
     }

@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.uestc.ganbu.R;
 import com.uestc.ganbu.entity.CadreFamily;
+import com.uestc.ganbu.entity.EventMarriage;
+import com.uestc.ganbu.util.EventBusUtil;
 import com.uestc.ganbu.util.StreamUtil;
 import com.uestc.ganbu.util.TimeFormatUtil;
 
@@ -62,7 +64,11 @@ public class FamilyAdapter extends RecyclerView.Adapter<FamilyAdapter.FamilyView
             int count = cursor.getCount();
             if (count > 0) {
                 if (cursor.moveToFirst()) {
-                    holder.mRelationship.setText(cursor.getString(cursor.getColumnIndex("S0603")));
+                    String tmp = cursor.getString(cursor.getColumnIndex("S0603"));
+                    if (!TextUtils.isEmpty(tmp) && tmp.contains("妻")) {
+                        EventBusUtil.postEvent(new EventMarriage());
+                    }
+                    holder.mRelationship.setText(tmp);
                 }
             }
             StreamUtil.close(cursor);
